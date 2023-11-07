@@ -27,10 +27,10 @@ sed -i '/dnsmasq/aoption sequential_ip 1' package/network/services/dnsmasq/files
 # 禁用内置的 IPv6 管理， /etc/config/network 中 config interface 'wan'、config interface 'lan' 字段下
 sed -i "/proto='none'/aset network.\$1.delegate='0'"  package/base-files/files/bin/config_generate
 #禁用 Smart DNS IPV6 服务器，安装 luci-app-smartdns时有效
-sed -i 's/ipv6_server = 1/ipv6_server = 0/g' feeds/kenzo/luci-app-smartdns/luasrc/controller/smartdns.lua
+#sed -i 's/ipv6_server = 1/ipv6_server = 0/g' feeds/kenzo/luci-app-smartdns/luasrc/controller/smartdns.lua
 # 修改Smart DNS 位置
-sed -i 's/"services"/"network"/g' feeds/kenzo/luci-app-smartdns/luasrc/controller/smartdns.lua
-sed -i 's/"services"/"network"/g' feeds/kenzo/luci-app-smartdns/luasrc/view/smartdns/smartdns_status.htm
+#sed -i 's/"services"/"network"/g' feeds/kenzo/luci-app-smartdns/luasrc/controller/smartdns.lua
+#sed -i 's/"services"/"network"/g' feeds/kenzo/luci-app-smartdns/luasrc/view/smartdns/smartdns_status.htm
 #禁用WAN6生成
 #sed -i 's/network_find_wan6/# network_find_wan6/g' package/base-files/files/lib/functions/network.sh
 #修改接口-造成混乱，停用。
@@ -106,10 +106,10 @@ sed -i 's/etc\/AdGuardHome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/kenzo/luc
 #修改 ADGuard Home 重定向模式为 重定向53端口到AdGuard Home
 #sed -i 's/none/redirect/g' feeds/kenzo/luci-app-adguardhome/root/etc/config/AdGuardHome
 #更改 AdGuard Home 打开 Web 端口
-sed -i 's/3000/8080/g' feeds/kenzo/luci-app-adguardhome/root/etc/config/AdGuardHome
-sed -i 's/3000/8080/g' feeds/kenzo/luci-app-adguardhome/root/usr/share/AdGuardHome/AdGuardHome_template.yaml
+#sed -i 's/3000/8080/g' feeds/kenzo/luci-app-adguardhome/root/etc/config/AdGuardHome
+#sed -i 's/3000/8080/g' feeds/kenzo/luci-app-adguardhome/root/usr/share/AdGuardHome/AdGuardHome_template.yaml
 #删除adguardhome默认配置文件
-sed -i '/define Package\/adguardhome\/install/,+7d' feeds/packages/net/adguardhome/Makefile
+#sed -i '/define Package\/adguardhome\/install/,+7d' feeds/packages/net/adguardhome/Makefile
 
 #修改 上网时间控制名称为上网计划
 #sed -i 's/上网时间控制/上网计划/g' package/feeds/luci/luci-app-accesscontrol/po/zh-cn/mia.po
