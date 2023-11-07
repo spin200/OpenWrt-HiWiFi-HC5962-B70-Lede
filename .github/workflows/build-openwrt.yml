@@ -38,11 +38,12 @@ env:
 jobs:
   build:
     runs-on: ubuntu-20.04
-
+    
     steps:
     - name: 校验
       uses: actions/checkout@main
-
+      # 设置日志保留时间为 90 天
+      timeout-minutes: 129600
     - name: 初始化环境
       env:
         DEBIAN_FRONTEND: noninteractive
