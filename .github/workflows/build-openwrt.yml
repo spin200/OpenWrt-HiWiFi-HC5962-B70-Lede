@@ -21,18 +21,18 @@ on:
 
 env:
   #REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_URL: https://github.com/openfros/fros
+  REPO_URL: https://github.com/openfros/fros  #源码仓库地址
   #REPO_BRANCH: master
-  REPO_BRANCH: main
-  FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: .config
-  DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy-part2.sh
-  UPLOAD_BIN_DIR: false
-  UPLOAD_FIRMWARE: true
-  UPLOAD_COWTRANSFER: false
-  UPLOAD_WETRANSFER: false
-  UPLOAD_RELEASE: true
+  REPO_BRANCH: main  #源码分支
+  FEEDS_CONF: feeds.conf.default #自定义feeds.conf.default文件名
+  CONFIG_FILE: .config   #自定义.config文件名
+  DIY_P1_SH: diy-part1.sh  #自定义diy-part1.sh文件名
+  DIY_P2_SH: diy-part2.sh  #自定义diy-part2.sh文件名
+  UPLOAD_BIN_DIR: false   #上传 bin 目录。即包含所有 ipk 文件和固件的目录。默认false
+  UPLOAD_FIRMWARE: true  #上传固件目录。默认true
+  UPLOAD_COWTRANSFER: false  #上传固件到奶牛快传。默认false
+  UPLOAD_WETRANSFER: false  #上传固件到 WeTransfer 。默认false
+  UPLOAD_RELEASE: true  #上传固件到 releases 。默认false
   TZ: Asia/Shanghai
 
 jobs:
