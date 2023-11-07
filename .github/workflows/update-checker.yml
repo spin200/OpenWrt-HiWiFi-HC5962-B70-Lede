@@ -10,10 +10,11 @@
 #
 
 name: 检查更新
-
+#https://github.com/coolsnowwolf/lede
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
+  REPO_URL: https://github.com/spin200/FROS-
+  #REPO_BRANCH: master
+  REPO_BRANCH: main
 
 on:
   workflow_dispatch:
