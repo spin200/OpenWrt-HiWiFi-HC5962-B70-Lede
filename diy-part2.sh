@@ -98,8 +98,8 @@ sed -i "/proto='none'/aset network.\$1.delegate='0'"  package/base-files/files/b
 #sed -i 's/etc\/adguardhome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/packages/net/adguardhome/files/adguardhome.init
 ##sed -i 's/etc\/config\/adguardhome/etc\/config\/AdGuardHome/g' feeds/packages/net/adguardhome/Makefile
 ##sed -i 's/etc\/adguardhome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/packages/net/adguardhome/Makefile
-sed -i 's/etc\/AdGuardHome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/kenzo/luci-app-adguardhome/root/etc/config/AdGuardHome
-sed -i 's/etc\/AdGuardHome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/kenzo/luci-app-adguardhome/root/etc/init.d/AdGuardHome
+#sed -i 's/etc\/AdGuardHome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/kenzo/luci-app-adguardhome/root/etc/config/AdGuardHome
+#sed -i 's/etc\/AdGuardHome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/kenzo/luci-app-adguardhome/root/etc/init.d/AdGuardHome
 ##sed -i 's/etc\/AdGuardHome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/kenzo/luci-app-adguardhome/Makefile
 #sed -i 's/var\/adguardhome/etc\/AdGuardHome/g' feeds/kenzo/adguardhome/files/adguardhome.config
 #sed -i 's/etc\/adguardhome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/kenzo/adguardhome/files/adguardhome.init
