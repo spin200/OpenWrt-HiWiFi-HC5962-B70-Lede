@@ -54,15 +54,14 @@ sed -i 's/"services"/"network"/g' feeds/kenzo/luci-app-smartdns/luasrc/view/smar
 
 # 修改插件名字（修改名字后不知道会不会对插件功能有影响，自己多测试）
 #chmod -R 755 package/lean/default-settings/po/zh-cn/more.po
-sed -i 's/"带宽监控"/"监控"/g' package/lean/default-settings/po/zh-cn/more.po
-sed -i 's/"带宽监控"/"监控"/g' feeds/luci/applications/luci-app-nlbwmon/po/zh-cn/nlbwmon.po
-#sed -i 's/"网络存储"/"存储"/g' package/lean/luci-app-amule/po/zh-cn/amule.po
-#sed -i 's/"网络存储"/"存储"/g' package/lean/luci-app-vsftpd/po/zh-cn/vsftpd.po
-echo ''  >> feeds/luci/modules/luci-base/po/zh-cn/base.po
-echo 'msgid "NAS"'  >> feeds/luci/modules/luci-base/po/zh-cn/base.po
-echo 'msgstr "存储"'  >> feeds/luci/modules/luci-base/po/zh-cn/base.po
+#sed -i 's/"带宽监控"/"监控"/g' package/lean/default-settings/po/zh-cn/more.po
+#sed -i 's/"带宽监控"/"监控"/g' feeds/luci/applications/luci-app-nlbwmon/po/zh-cn/nlbwmon.po
+##sed -i 's/"网络存储"/"存储"/g' package/lean/luci-app-vsftpd/po/zh-cn/vsftpd.po
+##echo ''  >> feeds/luci/modules/luci-base/po/zh-cn/base.po
+##echo 'msgid "NAS"'  >> feeds/luci/modules/luci-base/po/zh-cn/base.po
+##echo 'msgstr "存储"'  >> feeds/luci/modules/luci-base/po/zh-cn/base.po
 #echo 'msgstr "存储"'  >> package/lean/default-settings/po/zh-cn/more.po
-sed -i 's/"网络存储"/"存储"/g' feeds/luci/applications/luci-app-usb-printer/po/zh-cn/usb-printer.po
+##sed -i 's/"网络存储"/"存储"/g' feeds/luci/applications/luci-app-usb-printer/po/zh-cn/usb-printer.po
 #sed -i 's/"实时流量监测"/"流量"/g' package/lean/luci-app-wrtbwmon/po/zh-cn/wrtbwmon.po
 #sed -i 's/cbi("qbittorrent"),_("qBittorrent")/cbi("qbittorrent"),_("BT下载")/g' package/lean/luci-app-qbittorrent/luasrc/controller/qbittorrent.lua
 #sed -i 's/"aMule设置"/"电驴下载"/g' package/lean/luci-app-amule/po/zh-cn/amule.po
@@ -77,11 +76,11 @@ sed -i 's/"服务"/"应用"/g' feeds/luci/modules/luci-base/po/zh-cn/base.po
 # 微信推送 英文名换成中文名
 #sed -i 's/translate("ServerChan")/translate("微信推送：")/g' feeds/kenzo/luci-app-serverchan/luasrc/model/cbi/serverchan/setting.lua
 #sed -i 's/>serverchan/>微信推送：/g' feeds/kenzo/luci-app-serverchan/luasrc/view/serverchan/serverchan_status.htm
-sed -i 's/translate("ServerChan")/translate("微信推送：")/g' feeds/luci/applications/luci-app-serverchan/luasrc/model/cbi/serverchan/setting.lua
-sed -i 's/>serverchan/>微信推送：/g' feeds/luci/applications/luci-app-serverchan/luasrc/view/serverchan/serverchan_status.htm
+#sed -i 's/translate("ServerChan")/translate("微信推送：")/g' feeds/luci/applications/luci-app-serverchan/luasrc/model/cbi/serverchan/setting.lua
+#sed -i 's/>serverchan/>微信推送：/g' feeds/luci/applications/luci-app-serverchan/luasrc/view/serverchan/serverchan_status.htm
 # 删除微信推送部分IP识别。
 #sed -i '1,4d' feeds/kenzo/luci-app-serverchan/root/usr/bin/serverchan/api/ipv4.list
-sed -i '1,4d' feeds/luci/applications/luci-app-serverchan/root/usr/bin/serverchan/api/ipv4.list
+#sed -i '1,4d' feeds/luci/applications/luci-app-serverchan/root/usr/bin/serverchan/api/ipv4.list
 
 # 修改应用过滤位置：取消集成，效果不是很理想。
 # sed -i 's/"network"/"services"/g' feeds/OpenAppFilter/luci-app-oaf/luasrc/controller/appfilter.lua
@@ -113,7 +112,7 @@ sed -i 's/3000/8080/g' feeds/kenzo/luci-app-adguardhome/root/usr/share/AdGuardHo
 sed -i '/define Package\/adguardhome\/install/,+7d' feeds/packages/net/adguardhome/Makefile
 
 #修改 上网时间控制名称为上网计划
-sed -i 's/上网时间控制/上网计划/g' package/feeds/luci/luci-app-accesscontrol/po/zh-cn/mia.po
+#sed -i 's/上网时间控制/上网计划/g' package/feeds/luci/luci-app-accesscontrol/po/zh-cn/mia.po
 
 #关闭自建私有源签名验证
 #sed -i '90d' package/system/opkg/Makefile
