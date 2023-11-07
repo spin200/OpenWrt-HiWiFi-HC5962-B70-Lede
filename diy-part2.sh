@@ -72,7 +72,7 @@ sed -i 's/"services"/"network"/g' feeds/kenzo/luci-app-smartdns/luasrc/view/smar
 #sed -i 's/"服务"/"应用"/g' feeds/luci/applications/luci-app-nft-qos/po/zh-cn/nft-qos.po
 #sed -i 's/"服务"/"应用"/g' feeds/luci/applications/luci-app-openvpn/po/zh-cn/openvpn.po
 #sed -i 's/"服务"/"应用"/g' feeds/luci/applications/luci-app-qos/po/zh-cn/qos.po
-sed -i 's/"服务"/"应用"/g' feeds/luci/modules/luci-base/po/zh-cn/base.po
+##sed -i 's/"服务"/"应用"/g' feeds/luci/modules/luci-base/po/zh-cn/base.po
 # 微信推送 英文名换成中文名
 #sed -i 's/translate("ServerChan")/translate("微信推送：")/g' feeds/kenzo/luci-app-serverchan/luasrc/model/cbi/serverchan/setting.lua
 #sed -i 's/>serverchan/>微信推送：/g' feeds/kenzo/luci-app-serverchan/luasrc/view/serverchan/serverchan_status.htm
@@ -87,11 +87,11 @@ sed -i 's/"服务"/"应用"/g' feeds/luci/modules/luci-base/po/zh-cn/base.po
 # sed -i 's/"network"/"services"/g' feeds/OpenAppFilter/luci-app-oaf/luasrc/model/cbi/appfilter/dev_status.lua
 
 # 修改UPnP位置
-sed -i 's/"services"/"network"/g' feeds/luci/applications/luci-app-upnp/luasrc/controller/upnp.lua
-sed -i 's/admin\/services/admin\/network/g' feeds/luci/applications/luci-app-upnp/luasrc/view/upnp_status.htm
+##sed -i 's/"services"/"network"/g' feeds/luci/applications/luci-app-upnp/luasrc/controller/upnp.lua
+###sed -i 's/admin\/services/admin\/network/g' feeds/luci/applications/luci-app-upnp/luasrc/view/upnp_status.htm
 
 # 删除IPv6防火墙策略
-sed -i '/ip6tables/d' package/lean/default-settings/files/zzz-default-settings
+##sed -i '/ip6tables/d' package/lean/default-settings/files/zzz-default-settings
 
 #更改 AdGuard Home 配置文件位置
 #sed -i 's/var\/adguardhome/etc\/AdGuardHome/g' feeds/packages/net/adguardhome/files/adguardhome.config
@@ -118,7 +118,7 @@ sed -i '/define Package\/adguardhome\/install/,+7d' feeds/packages/net/adguardho
 #sed -i '90d' package/system/opkg/Makefile
 
 #自动共享
-sed -i 's/a.default = "0"/a.default = "1"/g' ./feeds/luci/applications/luci-app-cifsd/luasrc/controller/cifsd.lua
+##sed -i 's/a.default = "0"/a.default = "1"/g' ./feeds/luci/applications/luci-app-cifsd/luasrc/controller/cifsd.lua
 
 #设置文件权限(2022.06.15，文件临时删除，待更新后恢复)
 #chmod -R 755 files/usr/bin/AdGuardHome
