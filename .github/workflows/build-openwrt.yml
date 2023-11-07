@@ -42,8 +42,6 @@ jobs:
     steps:
     - name: 校验
       uses: actions/checkout@main
-      # 设置日志保留时间为 90 天
-      timeout-minutes: 129600
     - name: 初始化环境
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -211,3 +209,5 @@ jobs:
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # 设置日志保留时间为 90 天
+      timeout-minutes: 129600
