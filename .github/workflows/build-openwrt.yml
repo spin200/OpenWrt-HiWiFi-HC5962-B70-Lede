@@ -177,19 +177,19 @@ jobs:
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
 
-    - name: 删除运行工作流
-      uses: GitRML/delete-workflow-runs@main
-      with:
-        retain_days: 1
-        keep_minimum_runs: 3
+    #- name: 删除运行工作流
+     # uses: GitRML/delete-workflow-runs@main
+     # with:
+     #   retain_days: 1
+     #   keep_minimum_runs: 3
 
-    - name: 删除旧版本
-      uses: dev-drprasad/delete-older-releases@v0.1.0
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      with:
-        keep_latest: 3
-        delete_tags: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+   # - name: 删除旧版本
+    #  uses: dev-drprasad/delete-older-releases@v0.1.0
+    #  if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+    #  with:
+    #   keep_latest: 3
+    #    delete_tags: true
+     # env:
+     #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # 设置日志保留时间为 90 天
-      timeout-minutes: 129600
+    #  timeout-minutes: 129600
