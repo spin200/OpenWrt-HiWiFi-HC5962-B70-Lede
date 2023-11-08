@@ -21,7 +21,7 @@ on:
 
 env:
   #REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_URL: https://github.com/openfros/fros  #源码仓库地址
+  REPO_URL: https://github.com/spin200/FROS  #源码仓库地址
   #REPO_BRANCH: master
   REPO_BRANCH: main  #源码分支
   FEEDS_CONF: feeds.conf.default #自定义feeds.conf.default文件名
@@ -176,20 +176,3 @@ jobs:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
-
-    #- name: 删除运行工作流
-     # uses: GitRML/delete-workflow-runs@main
-     # with:
-     #   retain_days: 1
-     #   keep_minimum_runs: 3
-
-   # - name: 删除旧版本
-    #  uses: dev-drprasad/delete-older-releases@v0.1.0
-    #  if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-    #  with:
-    #   keep_latest: 3
-    #    delete_tags: true
-     # env:
-     #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # 设置日志保留时间为 90 天
-    #  timeout-minutes: 129600
