@@ -72,15 +72,15 @@ jobs:
           ./scripts/feeds update -a  
           ./scripts/feeds install -a 
           # 获取所有依赖包列表  
-          deps=$(make package/symlinks/list | awk '{print $1}') 
+          #deps=$(make package/symlinks/list | awk '{print $1}') 
           # 遍历依赖包列表并检查安装
-          for dep in $deps; do 
-          if ! grep -q "package/$dep" openwrt/feeds.conf.default; then 
-          echo "安装缺失的依赖: $dep"  
-          ./scripts/feeds install $dep  
-          fi
-          done
-          working-directory: ./openwrt
+          #for dep in $deps; do 
+          #if ! grep -q "package/$dep" openwrt/feeds.conf.default; then 
+          #echo "安装缺失的依赖: $dep"  
+          #./scripts/feeds install $dep  
+          #fi
+          #done
+         # working-directory: ./openwrt
 
     - name: 加载自定义配置
       run: |
