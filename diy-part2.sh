@@ -1,138 +1,67 @@
-#!/bin/bash
-#
-# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
-# https://github.com/P3TERX/Actions-OpenWrt
-# File name: diy-part2.sh
-# Description: OpenWrt DIY script part 2 (After Update feeds)
-#
+# 增加 lienol passwall
+echo "src-git lienol https://github.com/chenshuo890/lienol-openwrt-package.git" >> feeds.conf.default
 
-# 修改默认IP
-#sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
-sed -i 's/192.168.1.1/192.168.199.1/g' package/base-files/files/bin/config_generate
-sed -i 's/192.168/10.0/g' package/base-files/files/bin/config_generate
-#禁用IPv6 DHCP，包含单引号的sed外部直接用双引号
-sed -i "s/ipv6='1'/ipv6='0'/g" package/base-files/files/bin/config_generate
-# 设置 DNS 解析端口
-sed -i '/dnsmasq/aoption port 53'  package/network/services/dnsmasq/files/dhcp.conf
-# 禁止解析 IPv6 DNS 记录
-sed -i '/dnsmasq/aoption filter_aaaa 1'  package/network/services/dnsmasq/files/dhcp.conf
-#不记录日志
-sed -i '/dnsmasq/aoption quietdhcp 1' package/network/services/dnsmasq/files/dhcp.conf
-#DHCP顺序分配 IP /etc/config/dhcp 中 config dnsmasq 字段下。
-sed -i '/dnsmasq/aoption sequential_ip 1' package/network/services/dnsmasq/files/dhcp.conf
-# 禁用内置的 IPv6 管理， /etc/config/network 中 config interface 'wan'、config interface 'lan' 字段下
-sed -i "/proto='none'/aset network.\$1.delegate='0'"  package/base-files/files/bin/config_generate
-#禁用 Smart DNS IPV6 服务器，安装 luci-app-smartdns时有效
-#sed -i 's/ipv6_server = 1/ipv6_server = 0/g' feeds/kenzo/luci-app-smartdns/luasrc/controller/smartdns.lua
-# 修改Smart DNS 位置
-#sed -i 's/"services"/"network"/g' feeds/kenzo/luci-app-smartdns/luasrc/controller/smartdns.lua
-#sed -i 's/"services"/"network"/g' feeds/kenzo/luci-app-smartdns/luasrc/view/smartdns/smartdns_status.htm
-#禁用WAN6生成
-#sed -i 's/network_find_wan6/# network_find_wan6/g' package/base-files/files/lib/functions/network.sh
-#修改接口-造成混乱，停用。
-#sed -i 's/ucidef_set_interfaces_lan_wan "lan1 lan2 lan3" "wan"/ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4" "wan"/g' target/linux/ramips/mt7621/base-files/etc/board.d/02_network
-#修改网卡接口名称-造成混乱，停用。
-#sed -i 's/port@1/port@0/g' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
-#sed -i 's/port@2/port@1/g' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
-#sed -i 's/port@3/port@2/g' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
-#sed -i 's/port@4/port@3/g' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
-#不会什么正规则，用的笨办法。
-#定位到'ports {'在下一行加入三个制表符'\ \t'\\t\\t，减少或增加一个'\\t'
-#sed -i '/ports {/a\ \t\\t\\tport@0 {' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
-#sed -i '/port@0 {/a\ \t\\t\\t\\tstatus = "okay0";' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
-#sed -i '/status = "okay0";/a\ \t\\t\\t\\tlabel = "lan01";' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
-#sed -i '/label = "lan01";/a\ \t\\t\\t\};0' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
-#在下一行加入空白行'/a\n'
-#sed -i '/};0/a\n' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
-#sed -i 's/};0/};/g' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
-#sed -i 's/"lan01"/"lan1"/g' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
-#sed -i 's/"okay0"/"okay"/g' target/linux/ramips/dts/mt7621_hiwifi_hc5962.dts
+# 更改默认主题为Argon
+rm -rf package/lean/luci-theme-argon
+git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/lean/luci-theme-argon
 
-# 修改插件名字（修改名字后不知道会不会对插件功能有影响，自己多测试）
-#chmod -R 755 package/lean/default-settings/po/zh-cn/more.po
-#sed -i 's/"带宽监控"/"监控"/g' package/lean/default-settings/po/zh-cn/more.po
-#sed -i 's/"带宽监控"/"监控"/g' feeds/luci/applications/luci-app-nlbwmon/po/zh-cn/nlbwmon.po
-##sed -i 's/"网络存储"/"存储"/g' package/lean/luci-app-vsftpd/po/zh-cn/vsftpd.po
-##echo ''  >> feeds/luci/modules/luci-base/po/zh-cn/base.po
-##echo 'msgid "NAS"'  >> feeds/luci/modules/luci-base/po/zh-cn/base.po
-##echo 'msgstr "存储"'  >> feeds/luci/modules/luci-base/po/zh-cn/base.po
-#echo 'msgstr "存储"'  >> package/lean/default-settings/po/zh-cn/more.po
-##sed -i 's/"网络存储"/"存储"/g' feeds/luci/applications/luci-app-usb-printer/po/zh-cn/usb-printer.po
-#sed -i 's/"实时流量监测"/"流量"/g' package/lean/luci-app-wrtbwmon/po/zh-cn/wrtbwmon.po
-#sed -i 's/cbi("qbittorrent"),_("qBittorrent")/cbi("qbittorrent"),_("BT下载")/g' package/lean/luci-app-qbittorrent/luasrc/controller/qbittorrent.lua
-#sed -i 's/"aMule设置"/"电驴下载"/g' package/lean/luci-app-amule/po/zh-cn/amule.po
-#sed -i 's/"KMS 服务器"/"KMS激活"/g' package/lean/luci-app-vlmcsd/po/zh-cn/vlmcsd.zh-cn.po
-#sed -i 's/"USB 打印服务器"/"打印服务"/g' package/lean/luci-app-usb-printer/po/zh-cn/usb-printer.po
-#sed -i 's/"Web 管理"/"Web"/g' package/lean/luci-app-webadmin/po/zh-cn/webadmin.po
-#sed -i 's/"管理权"/"改密码"/g' feeds/luci/modules/luci-base/po/zh-cn/base.po
-#sed -i 's/"服务"/"应用"/g' feeds/luci/applications/luci-app-nft-qos/po/zh-cn/nft-qos.po
-#sed -i 's/"服务"/"应用"/g' feeds/luci/applications/luci-app-openvpn/po/zh-cn/openvpn.po
-#sed -i 's/"服务"/"应用"/g' feeds/luci/applications/luci-app-qos/po/zh-cn/qos.po
-##sed -i 's/"服务"/"应用"/g' feeds/luci/modules/luci-base/po/zh-cn/base.po
-# 微信推送 英文名换成中文名
-#sed -i 's/translate("ServerChan")/translate("微信推送：")/g' feeds/kenzo/luci-app-serverchan/luasrc/model/cbi/serverchan/setting.lua
-#sed -i 's/>serverchan/>微信推送：/g' feeds/kenzo/luci-app-serverchan/luasrc/view/serverchan/serverchan_status.htm
-#sed -i 's/translate("ServerChan")/translate("微信推送：")/g' feeds/luci/applications/luci-app-serverchan/luasrc/model/cbi/serverchan/setting.lua
-#sed -i 's/>serverchan/>微信推送：/g' feeds/luci/applications/luci-app-serverchan/luasrc/view/serverchan/serverchan_status.htm
-# 删除微信推送部分IP识别。
-#sed -i '1,4d' feeds/kenzo/luci-app-serverchan/root/usr/bin/serverchan/api/ipv4.list
-#sed -i '1,4d' feeds/luci/applications/luci-app-serverchan/root/usr/bin/serverchan/api/ipv4.list
+# smartdns
+svn co https://github.com/pymumu/smartdns/trunk/package/openwrt package/danxiaonuo/smartdns
+svn co https://github.com/project-openwrt/openwrt/trunk/package/ntlf9t/luci-app-smartdns package/danxiaonuo/luci-app-smartdns
+#git clone https://github.com/ujincn/smartdns.git package/danxiaonuo/smartdns
+#git clone https://github.com/ujincn/luci-app-smartdns-compat.git package/danxiaonuo/luci-app-smartdns-compat
+#git clone https://github.com/pymumu/openwrt-smartdns.git package/danxiaonuo/smartdns
+#git clone --branch lede https://github.com/pymumu/luci-app-smartdns.git package/danxiaonuo/luci-app-smartdns
+#svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-smartdns package/danxiaonuo/luci-app-smartdns
 
-# 修改应用过滤位置：取消集成，效果不是很理想。
-# sed -i 's/"network"/"services"/g' feeds/OpenAppFilter/luci-app-oaf/luasrc/controller/appfilter.lua
-# sed -i 's/"network"/"services"/g' feeds/OpenAppFilter/luci-app-oaf/luasrc/model/cbi/appfilter/dev_status.lua
+# 复杂的AdGuardHome的openwrt的luci界面
+git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/danxiaonuo/luci-app-adguardhome
 
-# 修改UPnP位置
-##sed -i 's/"services"/"network"/g' feeds/luci/applications/luci-app-upnp/luasrc/controller/upnp.lua
-###sed -i 's/admin\/services/admin\/network/g' feeds/luci/applications/luci-app-upnp/luasrc/view/upnp_status.htm
+# Server酱
+git clone https://github.com/tty228/luci-app-serverchan.git package/danxiaonuo/luci-app-serverchan
 
-# 删除IPv6防火墙策略
-##sed -i '/ip6tables/d' package/lean/default-settings/files/zzz-default-settings
+# luci-app-aliddns
+git clone https://github.com/honwen/luci-app-aliddns package/danxiaonuo/luci-app-aliddns
 
-#更改 AdGuard Home 配置文件位置
-#sed -i 's/var\/adguardhome/etc\/AdGuardHome/g' feeds/packages/net/adguardhome/files/adguardhome.config
-#sed -i 's/etc\/adguardhome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/packages/net/adguardhome/files/adguardhome.init
-##sed -i 's/etc\/config\/adguardhome/etc\/config\/AdGuardHome/g' feeds/packages/net/adguardhome/Makefile
-##sed -i 's/etc\/adguardhome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/packages/net/adguardhome/Makefile
-#sed -i 's/etc\/AdGuardHome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/kenzo/luci-app-adguardhome/root/etc/config/AdGuardHome
-#sed -i 's/etc\/AdGuardHome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/kenzo/luci-app-adguardhome/root/etc/init.d/AdGuardHome
-##sed -i 's/etc\/AdGuardHome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/kenzo/luci-app-adguardhome/Makefile
-#sed -i 's/var\/adguardhome/etc\/AdGuardHome/g' feeds/kenzo/adguardhome/files/adguardhome.config
-#sed -i 's/etc\/adguardhome.yaml/etc\/config\/AdGuardHome.yaml/g' feeds/kenzo/adguardhome/files/adguardhome.init
-#修改 ADGuard Home 重定向模式为 重定向53端口到AdGuard Home
-#sed -i 's/none/redirect/g' feeds/kenzo/luci-app-adguardhome/root/etc/config/AdGuardHome
-#更改 AdGuard Home 打开 Web 端口
-#sed -i 's/3000/8080/g' feeds/kenzo/luci-app-adguardhome/root/etc/config/AdGuardHome
-#sed -i 's/3000/8080/g' feeds/kenzo/luci-app-adguardhome/root/usr/share/AdGuardHome/AdGuardHome_template.yaml
-#删除adguardhome默认配置文件
-#sed -i '/define Package\/adguardhome\/install/,+7d' feeds/packages/net/adguardhome/Makefile
+# 增加openwet常用软件包
+#git clone https://github.com/kenzok8/openwrt-packages.git package/danxiaonuo/
 
-#修改 上网时间控制名称为上网计划
-#sed -i 's/上网时间控制/上网计划/g' package/feeds/luci/luci-app-accesscontrol/po/zh-cn/mia.po
+# DiskMan for LuCI (WIP)
+# git clone https://github.com/lisaac/luci-app-diskman.git package/danxiaonuo/luci-app-diskman
+# mkdir -p package/danxiaonuo/parted && cp -i package/danxiaonuo/luci-app-diskman/Parted.Makefile package/danxiaonuo/parted/Makefile
 
-#关闭自建私有源签名验证
-#sed -i '90d' package/system/opkg/Makefile
+# KPR plus+
+# git clone https://github.com/project-openwrt/luci-app-koolproxyR.git package/danxiaonuo/luci-app-koolproxyR
 
-#自动共享
-##sed -i 's/a.default = "0"/a.default = "1"/g' ./feeds/luci/applications/luci-app-cifsd/luasrc/controller/cifsd.lua
+# FileBrowser
+# git clone https://github.com/project-openwrt/FileBrowser.git package/danxiaonuo/FileBrowser
 
-#设置文件权限(2022.06.15，文件临时删除，待更新后恢复)
-#chmod -R 755 files/usr/bin/AdGuardHome
-#chmod -R 755 files/usr/bin/dnsproxy
-#chmod -R 755 files/usr/bin/kcptun-client
-#chmod -R 755 files/usr/bin/trojan-go
-#chmod -R 755 files/usr/bin/v2ray-plugin
-#chmod -R 755 files/usr/bin/xray
+# 网易云音乐
+# git clone https://github.com/project-openwrt/luci-app-unblockneteasemusic.git package/danxiaonuo/luci-app-unblockneteasemusic
 
-#echo '修改文件'
-#rm -rf package/base-files/files/etc/banner
-#cp -f ../banner package/base-files/files/etc/
+# OpenClash
+#git clone https://github.com/vernesong/OpenClash.git package/danxiaonuo/OpenClash
 
-# 添加核心温度的显示
-#sed -i 's|pcdata(boardinfo.system or "?")|luci.sys.exec("uname -m") or "?"|g' feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
-#sed -i 's/or "1"%>/or "1"%> ( <%=luci.sys.exec("expr `cat \/sys\/class\/thermal\/thermal_zone0\/temp` \/ 1000") or "?"%> \&#8451; ) /g' feeds/luci/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+# 网易云音乐GoLang版本
+# git clone https://github.com/project-openwrt/luci-app-unblockneteasemusic-go.git package/danxiaonuo/luci-app-unblockneteasemusic-go
 
+# 网易云音乐mini
+# git clone https://github.com/project-openwrt/luci-app-unblockneteasemusic-mini.git package/danxiaonuo/luci-app-unblockneteasemusic-mini
+
+# disable usb3.0
+# git clone https://github.com/rufengsuixing/luci-app-usb3disable.git package/danxiaonuo/luci-app-usb3disable
+
+# 管控上网行为
+# git clone https://github.com/destan19/OpenAppFilter.git package/danxiaonuo/OpenAppFilter
+
+# Rclone-OpenWrt
+# git clone https://github.com/ElonH/Rclone-OpenWrt.git package/danxiaonuo/Rclone-OpenWrt
+
+# k3设置
+rm -rf package/lean/k3screenctrl
+git clone https://github.com/lwz322/luci-app-k3screenctrl.git package/k3/luci-app-k3screenctrl
+git clone https://github.com/lwz322/k3screenctrl.git package/k3/k3screenctrl
+git clone https://github.com/lwz322/k3screenctrl_build.git package/k3/k3screenctrl_build
+
+# 删除默认配置
+rm -rf package/lean/default-settings
