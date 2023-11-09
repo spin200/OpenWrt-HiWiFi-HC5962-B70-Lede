@@ -61,12 +61,12 @@ jobs:
         make  
         sudo make install  
    
-    - name: Compile and Install libnl-cli  
-      run: |  
-        cd libnl-3.2.25/cli  
-        ./configure  
-        make  
-        sudo make install
+    #- name: Compile and Install libnl-cli  
+     # run: |  
+       # cd libnl-3.2.25/cli  
+       # ./configure  
+        #make  
+        #sudo make install
     - name: 初始化环境
       env:
         DEBIAN_FRONTEND: noninteractive
