@@ -21,7 +21,7 @@ on:
 
 env:
   #REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_URL: https://github.com/spin200/FROS  #源码仓库地址
+  REPO_URL: https://github.com/openfros/fros  #源码仓库地址
   #REPO_BRANCH: master
   REPO_BRANCH: main  #源码分支
   FEEDS_CONF: feeds.conf.default #自定义feeds.conf.default文件名
