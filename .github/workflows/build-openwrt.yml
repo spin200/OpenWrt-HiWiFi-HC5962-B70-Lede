@@ -53,12 +53,10 @@ jobs:
       run: |  
         wget https://www.infradead.org/~tgr/libnl/files/libnl-3.2.25.tar.gz   
         tar -xvzf libnl-3.2.25.tar.gz  
-      env:  
-        VERSION: 3.2.25 # 替换为您想要下载的 libnl 版本号  
-  
+
     - name: Compile and Install libnl  
       run: |  
-        cd libnl-${{ env.VERSION }}  
+        cd libnl-3.2.25  
         ./configure  
         make  
         sudo make install  
