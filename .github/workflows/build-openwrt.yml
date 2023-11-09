@@ -49,24 +49,26 @@ jobs:
         sudo apt install libnl-3-dev
         sudo apt install -y build-essential wget  
    
-    - name: Download Latest libnl Source  
+    - name: Download libnl Source  
       run: |  
-        wget $(wget -qO- https://www.infradead.org/~tgr/libnl/files/ | grep -oP 'libnl-\K\d+(\.\d+)*\.tar\.gz' | sort -Vr | head -n 1)  
-        tar -xvzf $(ls libnl-*.tar.gz)  
-         
+        wget https://www.infradead.org/~tgr/libnl/files/libnl-3.2.25.tar.gz   
+        tar -xvzf libnl-3.2.25.tar.gz  
+      env:  
+        VERSION: 3.2.25 # 替换为您想要下载的 libnl 版本号  
+  
     - name: Compile and Install libnl  
       run: |  
-        cd libnl-*  
+        cd libnl-${{ env.VERSION }}  
         ./configure  
         make  
         sudo make install  
    
     - name: Compile and Install libnl-cli  
       run: |  
-        cd cli  
+        cd libnl-${{ env.VERSION }}/cli  
         ./configure  
         make  
-        sudo make install   
+        sudo make install
     - name: 初始化环境
       env:
         DEBIAN_FRONTEND: noninteractive
