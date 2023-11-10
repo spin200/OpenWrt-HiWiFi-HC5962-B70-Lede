@@ -21,7 +21,7 @@ on:
 
 env:
   #REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_URL: https://github.com/spin200/FROS  
+  REPO_URL: https://github.com/openfros/fros   #https://github.com/spin200/FROS  
   #https://github.com/openfros/fros  #源码仓库地址
   #REPO_BRANCH: master
   REPO_BRANCH: main  #源码分支
