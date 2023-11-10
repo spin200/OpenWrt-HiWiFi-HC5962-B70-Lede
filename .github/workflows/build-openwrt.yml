@@ -21,7 +21,8 @@ on:
 
 env:
   #REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_URL: https://github.com/openfros/fros  #源码仓库地址
+  REPO_URL: https://github.com/spin200/FROS  
+  #https://github.com/openfros/fros  #源码仓库地址
   #REPO_BRANCH: master
   REPO_BRANCH: main  #源码分支
   FEEDS_CONF: feeds.conf.default #自定义feeds.conf.default文件名
@@ -37,7 +38,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04   #20.04
     
     steps:
     - name: 校验
@@ -47,9 +48,11 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        echo 'deb-src http://archive.ubuntu.com/ubuntu focal universe' | sudo tee -a /etc/apt/sources.list
+        echo 'deb http://archive.ubuntu.com/ubuntu focal universe' | sudo tee -a /etc/apt/sources.list
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install libnl-3-dev libnl-route-3-200 libnl-cli-3-dev libnl-genl-3-dev libnl-route-3-dev cmake curl wget vim git antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cpio device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev nano ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip xmlto xxd zlib1g-dev ack libz-dev patch lib32gcc1 flex uglifyjs msmtp libssl-dev upx libtool git-core python python3-pip python-ply python3-ply lrzsz ecj mkisofs libgnutls28-dev
+        sudo -E apt-get -qq install  cmake curl wget vim git antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cpio device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev nano ninja-build p7zip p7zip-full patch pkgconf python3 python3-pyelftools libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip xmlto xxd zlib1g-dev ack libz-dev patch lib32gcc1 flex uglifyjs msmtp libssl-dev upx libtool git-core python python3-pip python-ply python3-ply lrzsz ecj mkisofs libgnutls28-dev
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
@@ -93,6 +96,7 @@ jobs:
       id: package
       run: |
         cd openwrt
+        ./build.sh -i
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
@@ -102,8 +106,8 @@ jobs:
       run: |
         cd openwrt
         echo -e "$(nproc) thread compile"
-        make -j$(nproc) || make -j1 || make -j1 V=s
-        #make -j$(nproc) || make -j1 || make -j1 V=s
+        make -j($(nproc)+1) || make -j1 || make -j1 V=s
+        #make -j($(nproc)+1) || make -j1 || make -j1 V=s
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
