@@ -89,12 +89,11 @@ jobs:
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-
+     #./build.sh -i
     - name: 下载应用包
       id: package
       run: |
         cd openwrt
-        #./build.sh -i
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
