@@ -21,7 +21,7 @@ on:
 
 env:
   #REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_URL: https://github.com/spin200/FROS     #https://github.com/spin200/FROS  
+  REPO_URL: https://github.com/coolsnowwolf/lede     #https://github.com/spin200/FROS  
   #https://github.com/openfros/fros  #源码仓库地址
   #REPO_BRANCH: master
   REPO_BRANCH: main  #源码分支
@@ -31,7 +31,7 @@ env:
   DIY_P2_SH: diy-part2.sh  #自定义diy-part2.sh文件名
   UPLOAD_BIN_DIR: false   #上传 bin 目录。即包含所有 ipk 文件和固件的目录。默认false
   UPLOAD_FIRMWARE: true  #上传固件目录。默认true
-  UPLOAD_COWTRANSFER: false  #上传固件到奶牛快传。默认false
+  UPLOAD_COWTRANSFER: true  #上传固件到奶牛快传。默认false
   UPLOAD_WETRANSFER: false  #上传固件到 WeTransfer 。默认false
   UPLOAD_RELEASE: true  #上传固件到 releases 。默认false
   TZ: Asia/Shanghai
