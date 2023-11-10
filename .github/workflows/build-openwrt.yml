@@ -43,30 +43,6 @@ jobs:
     - name: 校验
       uses: actions/checkout@main
       
-    - name: Update Packages and Install Dependencies  
-      run: |  
-        sudo apt update 
-        sudo apt install libnl-3-dev
-        sudo apt install -y build-essential wget  
-   
-    - name: Download libnl Source  
-      run: |  
-        wget https://www.infradead.org/~tgr/libnl/files/libnl-3.2.25.tar.gz   
-        tar -xvzf libnl-3.2.25.tar.gz  
-
-    - name: Compile and Install libnl  
-      run: |  
-        cd libnl-3.2.25  
-        ./configure  
-        make  
-        sudo make install  
-   
-    #- name: Compile and Install libnl-cli  
-     # run: |  
-       # cd libnl-3.2.25/cli  
-       # ./configure  
-        #make  
-        #sudo make install
     - name: 初始化环境
       env:
         DEBIAN_FRONTEND: noninteractive
